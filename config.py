@@ -1,0 +1,1 @@
+MONGODB_URL ="mongodb+srv://root:1234@cluster0.nphr90n.mongodb.net/?retryWrites=true&w=majority"

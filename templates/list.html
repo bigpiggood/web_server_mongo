@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>list page</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>내용</th>
+                <th>저자</th>
+                <th>시간</th>
+                <th>비고</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in data %}
+            <tr>
+                <td>{{x['_id']}}</td>
+                <td>{{x['title']}}</td>
+                <td>{{x['desc']}}</td>
+                <td>{{x['author']}}</td>
+                <td>{{x['creat_at']}}</td>
+                <td><a href="/logout"><button type="submit">편집</button></a><a href="/logout">
+                    <button type="submit">삭제</button></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>내용</th>
+                <th>저자</th>
+                <th>시간</th>
+                <th>비고</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    
+</body>
+</html>
