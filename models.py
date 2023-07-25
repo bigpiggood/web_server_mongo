@@ -71,6 +71,13 @@ class MyMongo:
         return list
     
 
+    def find_one_data(self , ids):
+        db =self.client.os
+        list = db.lists
+        data = list.find_one({'_id':ObjectId(ids)})
+        return data
+
+
     def insert_data(self , title, desc, author):
         db = self.client.os
         lists = db.lists
@@ -84,13 +91,27 @@ class MyMongo:
         print(result)
         return ""
 
-
+    def delete_data(self, id):
+        db = self.client.os
+        lists = db.lists
+        lists.delete_one({'_id': ObjectId(id)})
+        return "1"
     
+# [컬렉션 객체].update_one( { [조건값] }, {"$set":{수정값}} )
+    def update_data(self, id, title, desc):
+        db = self.client.os
+        lists = db.lists
+        lists.update_one({'_id': ObjectId(id)}, {"$set":{"title":title, "desc":desc}})
+        return "1"
+        
 
 
 # mymongo = MyMongo(MONGODB_URL , 'os')
 # mymongo.user_insert("KIM", "1@naver.com", "010-1111-1111", "1234")
 # mymongo.verify_password("12343232",ObjectId('64ba2af7b26ddf90ce9642ac'))
+# mymongo.update_data("64bf2e9e6920adcb454b42da","김태경", "광산 김")
+
+
 
 # 원문 비밀번호를, 암호화 하는 함수
 # mymongo.find_data()

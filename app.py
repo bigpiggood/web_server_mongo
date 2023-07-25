@@ -1,9 +1,9 @@
-from flask import Flask ,render_template , request, redirect, session
+from flask import Flask ,render_template , request, redirect, session, jsonify
 from models import MyMongo
 from config import MONGODB_URL
 from functools import wraps
-
-
+from bson.json_util import dumps
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 app.secret_key = "My_Key"
@@ -118,6 +118,25 @@ def logout():
       session.clear()
       return redirect('/login')
 
+
+@app.route('/delete/<ids>')
+def delete(ids):   
+    mymongo.delete_data(ids)
+    return redirect('/list')
+
+
+@app.route('/edit/<ids>', methods=['GET','POST'])
+def edit_list(ids):   
+     if request.method == 'GET': 
+        data = mymongo.find_one_data(ids)    
+        print(data)   
+        return render_template('edit.html', data=data) 
+     elif request.method == 'POST':
+         title = request.form['title']
+         desc = request.form['desc']
+         mymongo.update_data(ids, title, desc)
+         return redirect('/list')
+   
 
 if __name__== "__main__":
     app.run(debug=True, port=9999)
